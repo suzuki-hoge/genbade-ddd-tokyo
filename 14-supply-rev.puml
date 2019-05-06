@@ -1,0 +1,23 @@
+@startuml
+
+package domain {
+  package supply {
+    class 配送申込
+    interface 配送リポジトリ {
+      void 配送(配送申込, 配送業者)
+    }
+    interface 配送業者
+  }
+  package supplier {
+    class 配送業者Impl
+  }
+  配送リポジトリ -r-> 配送申込
+  配送リポジトリ -d-> 配送業者
+  配送業者Impl -u-|> 配送業者
+}
+
+' よく変わる方に依存しない
+' 境界を越えて外に伸びる線が多いほど、他の変更に巻き込まれて変わる可能性が高い
+' 事業戦略と照らしたりして考える
+
+@enduml

@@ -1,0 +1,21 @@
+@startuml
+
+package domain {
+  enum プラン {
+    3GB_data
+    6GB_data
+    3GB_voice
+    6GB_voice
+  }
+}
+
+package infrastructure {
+  class プランValue {
+    String // pv001
+    + {static} create(プラン)
+  }
+}
+
+プランValue -u-> プラン
+
+@enduml

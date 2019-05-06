@@ -1,0 +1,17 @@
+@startuml
+
+package domain {
+  package supply {
+    class 配送申込
+    interface 配送リポジトリ {
+      void 配送(配送申込, 配送業者)
+    }
+  }
+  package supplier {
+    class 配送業者
+  }
+  配送リポジトリ -r-> 配送申込
+  配送リポジトリ -d-> 配送業者
+}
+
+@enduml

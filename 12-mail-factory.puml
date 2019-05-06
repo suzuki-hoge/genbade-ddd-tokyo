@@ -1,0 +1,26 @@
+@startuml
+
+package domain {
+  package mail {
+    class メール {
+      宛先, 件名, 本文
+      + {static} create(<font color=red>宛先, 件名, 本文</font>)
+    }
+  }
+  package 申込 {
+    class 申込内容 {
+      プラン, 端末, 年齢, メアド, 住所, 申込日時
+    }
+  }
+  申込内容 -d-> メール
+  package plan {
+    enum プラン
+  }
+  申込内容 --> プラン
+}
+
+' テストしやすい
+' 申込の本文だけ申込で作る
+' プランや端末みたいな変わりやすい物には依存しない
+
+@enduml

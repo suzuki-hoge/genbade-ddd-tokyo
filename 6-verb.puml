@@ -1,0 +1,72 @@
+@startuml
+
+package domain {
+  enum エラー {
+    未成年のため
+  }
+
+  class 申込内容 {
+    プラン, 端末, 年齢, メアド, 住所, 申込日時
+    + 受付内容 or エラー 申込()
+    - メール メール作成()
+    - 配送申込 配送作成()
+  }
+
+  enum プラン {
+    3GB_data(pv001)
+    6GB_data(pv002)
+    3GB_voice(pv003)
+    6GB_voice(pv004)
+  }
+
+  class 端末
+
+  class 年齢 {
+    + bool is未成年()
+  }
+
+  class メアド
+
+  class 住所 {
+    + bool is本州()
+  }
+
+  申込内容 --> 年齢 : 年齢チェック
+
+  class 配送予定日 {
+    + {static} create(住所, 申込日)
+    - {static} create本州(申込日)
+    - {static} create本州以外(申込日)
+  }
+
+  配送予定日 --> 住所
+  配送予定日 --> 申込日
+
+  class 配送申込 {
+    + {static} create(端末, 住所, 申込日)
+  }
+
+  配送申込 --> 配送予定日
+  配送申込 --> "1" 端末
+
+  class 受付内容 {
+    + {static} create(プラン, メアド, 端末, 住所, 申込日)
+  }
+
+  受付内容 --> "0..1" 配送申込
+  受付内容 --> メール
+
+  class メール {
+    宛先, 件名, 本文
+    + {static} create(プラン, メアド, 端末)
+  }
+
+  メール --> プラン
+  メール --> "0..1" 端末
+  メール --> メアド
+
+  申込内容 -r-> 受付内容 : return するかも
+  申込内容 -u-> エラー : return するかも
+}
+
+@enduml

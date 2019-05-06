@@ -1,0 +1,22 @@
+@startuml
+
+package domain {
+  class 申込内容 {
+    プラン, 端末, 年齢, メアド, 住所, 申込日時
+    + 受付内容 or エラー 申込()
+  }
+
+  class 受付内容 {
+    {static} create(プラン, メアド, 端末, 住所, 申込日)
+  }
+
+  受付内容 --> メール
+
+  class メール {
+    {static} create(プラン, メアド, 端末)
+  }
+
+  申込内容 -d-> 受付内容
+}
+
+@enduml

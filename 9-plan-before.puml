@@ -1,0 +1,12 @@
+@startuml
+
+package domain {
+  enum プラン {
+    3GB_data(pv001)
+    6GB_data(pv002)
+    3GB_voice(pv003)
+    6GB_voice(pv004)
+  }
+}
+
+@enduml
