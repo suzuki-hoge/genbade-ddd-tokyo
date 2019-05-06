@@ -1,0 +1,61 @@
+@startuml
+
+namespace domain {
+  namespace plan {
+    enum Plan {
+      3GB（pv001, 1, 3GBプラン, 2015/01, true）
+      6GB（pv002, 2, 6GBプラン, 2017/03, false）
+      ...
+      getUserTableValue()
+      getEventTableValue()
+      getMailSystemValue()
+      getViewWebValue()
+      getPlanStartTime()
+      isChargeAllowed()
+    }
+  }
+}
+
+namespace system {
+  namespace user {
+    class PlanTableValue {
+      String // pv001, pv002...
+    }
+  }
+
+  namespace event {
+    class PlanTableValue {
+      String // 1, 2...
+    }
+  }
+
+  namespace mail {
+    class PlanMailValue {
+      String // 1, 2...
+    }
+  }
+
+  namespace view {
+    class PlanWebValue {
+      String // 3GBプラン, 6GBプラン...
+    }
+  }
+}
+
+domain.plan.Plan --> system.user.PlanTableValue
+domain.plan.Plan --> system.event.PlanTableValue
+domain.plan.Plan --> system.mail.PlanMailValue
+domain.plan.Plan --> system.view.PlanWebValue : 定義された属性からどれかを渡す
+
+' 求めるな命じよに従った形
+' web での表記が変わるとドメイン層に変更が入る -> なぜいけないかは変更の頻度の話に繋げる
+' 業務ロジックが埋もれてる
+' コードのマスター表が Plan なので、終了したプランを消せない
+'   というか ui 層は闇なのでどんなエラーがどこで起きるかわからない
+'   特定のシステムからは過去のデータを扱わなくなったりしていても
+' のでドメインのリファクタをしづらい
+' テストを書くとわかる　ドメイン層のテストで pv001 とか見たいか？
+
+' 30 プラン 7 属性くらいあった
+
+@enduml

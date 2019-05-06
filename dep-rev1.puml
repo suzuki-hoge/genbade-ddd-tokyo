@@ -1,0 +1,27 @@
+@startuml
+
+package service {
+  class FooService
+}
+
+package domain {
+  class Mail
+  class MailRepository {
+    send(Mail)
+  }
+}
+
+package system {
+  class SendMail {
+    send(Mail)
+  }
+}
+
+FooService --> MailRepository : 送って
+FooService --> Mail
+MailRepository -r-> Mail
+MailRepository --> SendMail : 送って
+SendMail --> Mail
+
+
+@enduml

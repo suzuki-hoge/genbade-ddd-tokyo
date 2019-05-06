@@ -1,0 +1,36 @@
+@startuml
+
+package domain {
+  package 申込 {
+    class 申込内容_個人用 {
+      プラン, 端末...
+      メール create()
+    }
+    class 申込内容_法人A用 {
+      プラン, 端末...
+      メール create()
+    }
+  }
+  package メール {
+    class メール {
+      To, Sub, Body
+    }
+    interface 申込メール {
+      メール create()
+    }
+  }
+  申込内容_個人用 -d-|> 申込メール : implement
+  申込内容_法人A用 -d-|> 申込メール : implement
+  メール -r-> 申込メール
+}
+
+' body とかの組み立てがメール側になった
+' 法人B が増えるとメールも改修が必要
+' メールが変わっても個人や法人Aは直さなくて済む（Mail は被依存がないので影響は与えない）
+' getter が必要
+
+' メリット: 一番は new Mail が mail.domain になったこと
+' デメリット: getter が必要
+' 選択材料: foo より Mail が変わりやすい
+
+@enduml

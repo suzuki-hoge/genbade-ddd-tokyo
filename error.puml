@@ -1,0 +1,23 @@
+@startuml
+
+package ui {
+  class "Validation" as U
+}
+package service {
+  class "Either and IO" as S
+}
+package domain {
+  class "Either / Optional" as D
+}
+package transfer {
+  class "IO / Try" as T
+}
+
+U -d-> S
+S -d-> D
+S -d-> T
+
+hide circle
+hide methods
+
+@enduml

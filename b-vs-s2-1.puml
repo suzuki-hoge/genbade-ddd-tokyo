@@ -1,0 +1,11 @@
+@startuml
+
+package domain {
+  enum プラン {
+    3GB(pv001)
+    6GB(pv002)
+    get社内システムValue()
+  }
+}
+
+@enduml

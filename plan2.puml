@@ -1,0 +1,57 @@
+@startuml
+
+namespace domain {
+  namespace plan {
+    enum Plan {
+      3GB（2015/01, true）
+      6GB（2017/03, false）
+      ...
+      getPlanStartTime()
+      isChargeAllowed()
+    }
+  }
+}
+
+namespace system {
+  namespace user {
+    class PlanTableValue {
+      String // pv001, pv002...
+      {static} create(Plan)
+    }
+  }
+
+  namespace event {
+    class PlanTableValue {
+      String // 1, 2...
+      {static} create(Plan)
+    }
+  }
+
+  namespace mail {
+    class PlanMailValue {
+      String // 1, 2...
+      {static} create(Plan)
+    }
+  }
+
+  namespace view {
+    class PlanWebValue {
+      String // 3GBプラン, 6GBプラン...
+      {static} create(Plan)
+    }
+  }
+}
+
+domain.plan.Plan <-- system.user.PlanTableValue
+domain.plan.Plan <-- system.event.PlanTableValue
+domain.plan.Plan <-- system.mail.PlanMailValue
+domain.plan.Plan <-- system.view.PlanWebValue : if だか for だか match だか
+
+' 逆にした形
+' web での表記が変わってもドメイン層に変更は入らない
+' 業務ロジックだけになった
+' Plan から過去のプランを消せる（そういうことがしたければ）
+' 特定のサブシステムだけマッピングを変えたりねじ曲げたりエラーにしたりしやすい
+' PlanValue の変換テストをしたいなら、それぞれの側で単体テストをすれば良い
+
+@enduml

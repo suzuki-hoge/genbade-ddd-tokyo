@@ -1,0 +1,30 @@
+@startuml
+
+package domain {
+  package 申込 {
+    class 申込内容_個人用 {
+      プラン, 端末...
+    }
+    class 申込内容_法人A用 {
+      プラン, 端末...
+    }
+  }
+  package メール {
+    class メール {
+      To, Sub, Body
+    }
+  }
+  申込内容_個人用 -d-> メール : new（to, sub, body)
+  申込内容_法人A用 -d-> メール : new（to, sub, body)
+}
+
+' body とかの組み立てが申込側になってしまう
+' 法人B が増えてもメールは改修しないで済む
+' メールが変わったら個人用と法人Aを直す（メールは被依存が多いので影響を多く与える）
+' 個人が変わっても法人Aには波及しない（線を辿ってもお互いに辿り着かないから）
+
+' メリット: Mail が育ちづらいし安定する、getter がない
+' デメリット: sub とかが foo.domain や bar.domain に散る
+' 選択材料: Mail は変わりづらく、foo や bar が独立して変更される
+
+@enduml

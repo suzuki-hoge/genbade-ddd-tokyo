@@ -1,0 +1,13 @@
+@startuml
+
+package domain {
+  class メール {
+    {static} メール create(now)
+  }
+  class 本文 {
+    {static} 本文 create(now)\n// もし月内の最終週の場合は内容を変えたい
+  }
+  メール -d-> 本文
+}
+
+@enduml

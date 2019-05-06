@@ -1,0 +1,24 @@
+@startuml
+
+class "画面...？" as 画面
+
+class 名前
+
+enum プラン {
+  3GB(pv001)
+  6GB(pv002)
+  12GB(pv003)
+  20GB(pv004)
+}
+
+class 年齢 {
+  is未成年()
+}
+
+class 住所 {
+  is本州()
+}
+
+class "配送...？" as 配送
+
+@enduml

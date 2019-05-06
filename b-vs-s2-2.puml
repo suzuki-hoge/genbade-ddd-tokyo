@@ -1,0 +1,19 @@
+@startuml
+
+package domain {
+  enum プラン {
+    3GB
+    6GB
+  }
+}
+
+package transfer {
+  class プランValue {
+    String // pv001, pv002...
+    {static} create(プラン)
+  }
+}
+
+プランValue -u-> プラン
+
+@enduml
