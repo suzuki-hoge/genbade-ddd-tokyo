@@ -2,30 +2,26 @@
 
 package domain {
   enum エラー {
-    未成年のため
+    未成年エラー（未成年の方はお申し込みできません。）
   }
 
   class 申込内容 {
-    プラン, 端末, 年齢, メアド, 住所, 申込日時
+    メアド, 年齢, 住所, プラン, スマホ, 申込日
     + 受付内容 or エラー 申込()
     - メール メール作成()
     - 配送申込 配送作成()
   }
 
   enum プラン {
-    3GB_data(pv001)
-    6GB_data(pv002)
-    3GB_voice(pv003)
-    6GB_voice(pv004)
+    3GB（pv001）
+    6GB（pv002）
+    12GB（pv003）
+    20GB（pv004）
   }
-
-  class 端末
 
   class 年齢 {
     + bool is未成年()
   }
-
-  class メアド
 
   class 住所 {
     + bool is本州()
@@ -43,14 +39,14 @@ package domain {
   配送予定日 --> 申込日
 
   class 配送申込 {
-    + {static} create(端末, 住所, 申込日)
+    + {static} create(住所, スマホ, 申込日)
   }
 
   配送申込 --> 配送予定日
-  配送申込 --> "1" 端末
+  配送申込 --> "1" スマホ
 
   class 受付内容 {
-    + {static} create(プラン, メアド, 端末, 住所, 申込日)
+    + {static} create(メアド, 住所, プラン, スマホ, 申込日)
   }
 
   受付内容 --> "0..1" 配送申込
@@ -58,11 +54,11 @@ package domain {
 
   class メール {
     宛先, 件名, 本文
-    + {static} create(プラン, メアド, 端末)
+    + {static} create(メアド, プラン, スマホ)
   }
 
   メール --> プラン
-  メール --> "0..1" 端末
+  メール --> "0..1" スマホ
   メール --> メアド
 
   申込内容 -r-> 受付内容 : return するかも

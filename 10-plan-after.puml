@@ -1,13 +1,25 @@
 @startuml
 
 package domain {
+  enum エラー {
+    未成年エラー
+  }
   enum プラン {
-    3GB_data
-    6GB_data
-    3GB_voice
-    6GB_voice
+    3GB
+    6GB
+    12GB
+    20GB
   }
 }
+
+package ui {
+  class エラーMessage {
+    String // 未成年の方はお申し込みできません。
+    + {static} create(エラー)
+  }
+}
+
+エラーMessage -d-> エラー
 
 package infrastructure {
   class プランValue {

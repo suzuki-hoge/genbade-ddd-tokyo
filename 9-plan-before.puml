@@ -1,11 +1,14 @@
 @startuml
 
 package domain {
+  enum エラー {
+    未成年エラー（未成年の方はお申し込みできません。）
+  }
   enum プラン {
-    3GB_data(pv001)
-    6GB_data(pv002)
-    3GB_voice(pv003)
-    6GB_voice(pv004)
+    3GB（pv001）
+    6GB（pv002）
+    12GB（pv003）
+    20GB（pv004）
   }
 }
 

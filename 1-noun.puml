@@ -1,28 +1,42 @@
 @startuml
 
 package domain {
-  class "画面...??" as 画面
-
   enum プラン {
-    3GB_data(pv001)
-    6GB_data(pv002)
-    3GB_voice(pv003)
-    6GB_voice(pv004)
+    3GB（pv001）
+    6GB（pv002）
+    12GB（pv003）
+    20GB（pv004）
+    + String getValue()
   }
 
-  class 端末
-
   class 年齢 {
+    - String
+    + String getValue()
     + bool is未成年()
   }
 
-  class メアド
+  class メアド {
+    - String
+    + String getValue()
+  }
+
+  class スマホ {
+    - String
+    + String getValue()
+  }
 
   class 住所 {
+    - String
+    + String getValue()
     + bool is本州()
   }
 
   class "配送...??" as 配送
+
+  プラン -[hidden]d-> 住所
+  年齢 -[hidden]d-> メアド
+  メアド -[hidden]d-> 配送
+  住所 -[hidden]d-> スマホ
 }
 
 @enduml

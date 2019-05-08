@@ -4,12 +4,12 @@ package domain {
   package mail {
     class メール {
       宛先, 件名, 本文
-      + {static} create(プラン, メアド, 端末)
+      + {static} create(メアド, プラン, スマホ)
     }
   }
   package 申込 {
     class 申込内容 {
-      プラン, 端末, 年齢, メアド, 住所, 申込日時
+      メアド, 年齢, 住所, プラン, スマホ, 申込日
     }
   }
   申込内容 -d-> メール
