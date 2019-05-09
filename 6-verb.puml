@@ -7,7 +7,7 @@ package domain {
 
   class 申込内容 {
     メアド, 年齢, 住所, プラン, スマホ, 申込日
-    + 受付内容 or エラー 申込()
+    + <font color=red>受付内容 or エラー</font> 申込()
     - メール メール作成()
     - 配送申込 配送作成()
   }
@@ -61,8 +61,8 @@ package domain {
   メール --> "0..1" スマホ
   メール --> メアド
 
-  申込内容 -r-> 受付内容 : return するかも
-  申込内容 -u-> エラー : return するかも
+  申込内容 -r-> 受付内容 : <font color=red>return</font>
+  申込内容 -u-> エラー : <font color=red>return</font>
 }
 
 @enduml

@@ -1,0 +1,52 @@
+@startuml
+
+package application {
+  class "大量の条件分岐等のコード" as x1 {
+  }
+}
+package domain {
+  enum プラン {
+    3GB（pv001）
+    6GB（pv002）
+    12GB（pv003）
+    20GB（pv004）
+    + String getValue()
+  }
+
+  class 年齢 {
+    - String
+    + String getValue()
+    + bool is未成年()
+  }
+
+  class メアド {
+    - String
+    + String getValue()
+  }
+
+  class スマホ {
+    - String
+    + String getValue()
+  }
+
+  class 住所 {
+    - String
+    + String getValue()
+    + bool is本州()
+  }
+
+  class "配送...??" as 配送
+
+  プラン -[hidden]d-> 住所
+  年齢 -[hidden]d-> メアド
+  メアド -[hidden]d-> 配送
+  住所 -[hidden]d-> スマホ
+}
+package infrastructure {
+  class "大量の更新するための準備ロジック" as x2 {
+  }
+}
+x1 -d-> プラン
+x2 -u-> スマホ
+
+@enduml
